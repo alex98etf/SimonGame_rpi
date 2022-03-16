@@ -447,27 +447,16 @@ static irqreturn_t gpio_irq_handler_falling(int irq,void *dev_id)
     
 
     local_irq_save(flag); // Save all curent interupts;
+    
     SetGpioPin(id);
     mdelay(100);
     ClearGpioPin(id);
     printk(KERN_INFO "IRQ req: %d\n", irq);
+    
     local_irq_restore(flag);
+    
     return IRQ_HANDLED;
 }
-#if 0
-
-/* Interupt Handler For GPIO pin going high*/
-static irqreturn_t gpio_irq_handler_rising(int irq,void *dev_id) 
-{
-    int id = (int) (int *) dev_id;
-    id *= -1;
-
-    local_irq_save(flags);
-    ClearGpioPin(id);
-    local_irq_restore(flags);
-    return IRQ_HANDLED;
-}
-#endif
 
 /*
  * Initialization:
